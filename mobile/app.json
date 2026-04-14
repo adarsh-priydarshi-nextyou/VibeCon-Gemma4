@@ -1,0 +1,7 @@
+{
+  "name": "VoiceAnalysisApp",
+  "displayName": "Voice Analysis",
+  "android": {
+    "package": "com.voiceanalysisapp"
+  }
+}
