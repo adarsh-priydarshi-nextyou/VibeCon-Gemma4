@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: voice-analysis-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: voice_analysis
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - voice-analysis-network
+    restart: unless-stopped
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: voice-analysis-backend
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+      MONGODB_DATABASE: voice_analysis
+      AUDIO_PROCESSOR_HOST: 0.0.0.0
+      AUDIO_PROCESSOR_PORT: 8000
+      LOG_LEVEL: INFO
+    depends_on:
+      - mongodb
+    networks:
+      - voice-analysis-network
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app
+
+volumes:
+  mongodb_data:
+
+networks:
+  voice-analysis-network:
+    driver: bridge
