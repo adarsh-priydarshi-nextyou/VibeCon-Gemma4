@@ -95,7 +95,7 @@ class Gemma4LLM:
             with torch.no_grad():
                 outputs = self.model.generate(
                     **inputs,
-                    max_new_tokens=min(max_length, 100),  # Limit to 100 tokens for speed
+                    max_new_tokens=min(max_length, 50),  # Limit to 50 tokens for speed
                     temperature=0.7,
                     top_p=0.9,
                     do_sample=True,

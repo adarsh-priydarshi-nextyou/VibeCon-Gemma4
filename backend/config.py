@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     # MCP Server Configuration
     mcp_server_url: str = "http://localhost:8001"
     gemma4_model_path: Optional[str] = None
-    enable_llm: bool = False  # Set to True to enable real LLM (slow on CPU, use False for fast statistical mode)
+    enable_llm: bool = False  # Set to True to enable real LLM (VERY SLOW on CPU ~60s+, use False for fast statistical mode <10ms)
     
     # Security Configuration
     jwt_secret_key: str = "change-this-secret-key"
